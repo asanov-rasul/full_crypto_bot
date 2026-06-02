@@ -139,8 +139,6 @@ input[type=range]{width:100%;accent-color:var(--yellow);height:4px;cursor:pointe
 /* Binance button */
 .binance-btn{display:block;width:100%;padding:11px;background:rgba(240,185,11,.12);border:1px solid rgba(240,185,11,.4);color:#f0b90b;font-family:var(--font-mono);font-weight:700;font-size:11px;letter-spacing:2px;text-align:center;text-decoration:none;border-radius:4px;cursor:pointer;transition:all .2s;}
 .binance-btn:hover{background:rgba(240,185,11,.22);}
-.tv-btn{display:block;width:100%;padding:11px;background:rgba(41,98,255,.12);border:1px solid rgba(41,98,255,.45);color:#7aa2ff;font-family:var(--font-mono);font-weight:700;font-size:11px;letter-spacing:2px;text-align:center;text-decoration:none;border-radius:4px;cursor:pointer;transition:all .2s;}
-.tv-btn:hover{background:rgba(41,98,255,.22);}
 
 /* Risk box */
 .risk-box{padding:10px 12px;background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.15);border-radius:5px;font-size:11px;line-height:1.8;color:var(--text2);}
@@ -245,15 +243,6 @@ input[type=range]{width:100%;accent-color:var(--yellow);height:4px;cursor:pointe
 .filter-card{background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:14px;margin-bottom:10px;}
 .filter-title{font-size:9px;letter-spacing:3px;color:var(--text2);text-transform:uppercase;margin-bottom:12px;}
 
-/* BACKTEST */
-.bt-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:12px;}
-.bt-table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:5px;background:var(--bg3);}
-.bt-table{width:100%;border-collapse:collapse;font-size:10px;min-width:760px;}
-.bt-table th{padding:7px 8px;text-align:left;color:var(--text2);font-size:8px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--bg4);}
-.bt-table td{padding:7px 8px;border-bottom:1px solid var(--border);}
-.bt-table tr:last-child td{border-bottom:none;}
-.bt-note{font-size:10px;color:var(--text2);line-height:1.6;padding:10px 12px;border:1px solid rgba(255,201,60,.2);background:rgba(255,201,60,.04);border-radius:5px;margin-bottom:12px;}
-
 /* ── EMPTY ── */
 .empty{text-align:center;padding:40px 20px;color:var(--text3);font-size:11px;border:1px dashed var(--border);border-radius:5px;}
 .empty-icon{font-size:24px;margin-bottom:8px;}
@@ -306,7 +295,6 @@ input[type=range]{width:100%;accent-color:var(--yellow);height:4px;cursor:pointe
 <nav class="nav">
   <button class="nav-btn active" onclick="goTab('signal',this)">📈 Сигнал</button>
   <button class="nav-btn" onclick="goTab('scanner',this)">🔍 Сканер</button>
-  <button class="nav-btn" onclick="goTab('backtest',this)">Backtest</button>
   <button class="nav-btn" onclick="goTab('calc',this)">🧮 Калькул.</button>
   <button class="nav-btn" onclick="goTab('alerts',this)">🔔 Алерты</button>
   <button class="nav-btn" onclick="goTab('telegram',this)">✈️ Telegram</button>
@@ -400,55 +388,6 @@ input[type=range]{width:100%;accent-color:var(--yellow);height:4px;cursor:pointe
       <div class="progress-coins" id="progCoins"></div>
     </div>
     <div id="autoResults"><div class="empty"><div class="empty-icon">🔍</div>Запусти сканер</div></div>
-  </div>
-
-  <!-- BACKTEST TAB -->
-  <div id="tab-backtest" class="section">
-    <div class="section-header">
-      <div>
-        <div class="section-title">Backtest</div>
-        <div class="section-sub">SMC strategy check on Binance Futures history</div>
-      </div>
-    </div>
-    <div class="bt-note">
-      Backtest uses closed historical candles only. Entry is tested from the next 1H candle after a signal. If TP1 and SL are both touched inside one candle, SL is counted first.
-    </div>
-    <div class="filter-card">
-      <div class="filter-title">Parameters</div>
-      <div class="calc-row">
-        <div class="input-group">
-          <div class="input-label">Pair</div>
-          <select class="ctrl-select" id="btPair">
-            <option>BTCUSDT</option><option>ETHUSDT</option><option>BNBUSDT</option>
-            <option>SOLUSDT</option><option>XRPUSDT</option><option>ADAUSDT</option>
-            <option>AVAXUSDT</option><option>DOGEUSDT</option><option>PEPEUSDT</option>
-            <option>LINKUSDT</option><option>LTCUSDT</option><option>DOTUSDT</option>
-            <option>NEARUSDT</option><option>ARBUSDT</option><option>OPUSDT</option>
-            <option>INJUSDT</option><option>TRXUSDT</option><option>RENDERUSDT</option>
-            <option>POLUSDT</option><option>ROSEUSDT</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <div class="input-label">1H candles</div>
-          <select class="ctrl-select" id="btLimit">
-            <option value="300">300</option>
-            <option value="600" selected>600</option>
-            <option value="1000">1000</option>
-            <option value="1500">1500</option>
-          </select>
-        </div>
-      </div>
-      <div class="calc-row calc-3">
-        <div class="input-group"><div class="input-label">Leverage</div><input class="ctrl-input" type="number" id="btLev" value="10" min="1" max="100"></div>
-        <div class="input-group"><div class="input-label">Risk %</div><input class="ctrl-input" type="number" id="btRisk" value="1" min="0.1" max="10" step="0.1"></div>
-        <div class="input-group"><div class="input-label">Max hold H</div><input class="ctrl-input" type="number" id="btHold" value="36" min="1" max="240"></div>
-      </div>
-      <button class="analyze-btn" id="btBtn" onclick="runBacktest()">RUN BACKTEST</button>
-      <div class="status-msg" id="btStatus"></div>
-    </div>
-    <div id="btResults">
-      <div class="empty"><div class="empty-icon">BT</div>Run a backtest to see strategy stats.</div>
-    </div>
   </div>
 
   <!-- ─── CALCULATOR TAB ─── -->
@@ -923,172 +862,6 @@ async function analyzePair(pair, lev) {
 }
 
 // ═══════════════════════════════════════════════════
-//  BACKTEST
-// ═══════════════════════════════════════════════════
-async function fetchBtKlines(pair, interval, limit) {
-  const apiPair = toFutSymbol(pair);
-  const r = await fetch(`https://fapi.binance.com/fapi/v1/klines?symbol=${apiPair}&interval=${interval}&limit=${limit}`);
-  const d = await r.json();
-  if (!Array.isArray(d)) throw new Error('Binance returned no candles');
-  return d;
-}
-
-function btSignalFromWindows(pair, k1h, k4h, lev) {
-  const price = +k1h[k1h.length - 1][4];
-  const s1h = calcSMC(k1h);
-  const s4h = calcSMC(k4h);
-  if (!s1h || !s4h || !price) return null;
-
-  const prev = +k1h[k1h.length - 6][4];
-  const chg = ((price - prev) / prev) * 100;
-  const sc1h = s1h.sc + (chg > 2 ? 1 : chg < -2 ? -1 : 0) + (s1h.priceUp ? 1 : -1);
-  const sc4h = s4h.sc + (chg > 3 ? 1 : chg < -3 ? -1 : 0);
-  const total = Math.round(sc4h * 2 + sc1h);
-  const tfOk = (sc4h > 0 && sc1h > 0) || (sc4h < 0 && sc1h < 0);
-  const tfConflict = (sc4h > 0 && sc1h < 0) || (sc4h < 0 && sc1h > 0);
-  const dir = total >= 2 ? 'LONG' : total <= -2 ? 'SHORT' : (total >= 0 ? 'LONG' : 'SHORT');
-  let conf = 44 + Math.abs(total) * 5;
-  if (tfOk) conf += 8;
-  if (tfConflict) conf -= 15;
-  conf = Math.max(28, Math.min(72, Math.round(conf)));
-
-  const asset = getAsset(pair);
-  const hasBOS4H = s4h.bosDir !== 0;
-  const minConf = asset.class === 'weak_alt' ? 62 : 55;
-  const minScore = asset.class === 'weak_alt' ? 4 : 3;
-  const hasOBentry = (dir === 'LONG' && s1h.bullOB) || (dir === 'SHORT' && s1h.bearOB);
-  const hasFVG = s1h.fvg !== null;
-  const hasLiq = s1h.liq !== 'нет' && s1h.liq !== 'РЅРµС‚';
-  const canEnter = !tfConflict && conf >= minConf && Math.abs(total) >= minScore && hasBOS4H && (hasOBentry || hasFVG || hasLiq);
-  if (!canEnter) return null;
-
-  const atr = parseFloat(s1h.atr) || price * 0.008;
-  const entry = price;
-  let sl;
-  if (dir === 'LONG') {
-    const obL = s1h.bullOB ? parseFloat(s1h.bullOB.lo) * 0.9985 : null;
-    const swL = parseFloat(s1h.sup) * 0.999;
-    const atrSl = entry - atr * 1.3;
-    const cands = [[obL], [swL], [atrSl]].map(x => x[0]).filter(v => v && v < entry * 0.997);
-    sl = cands.length ? Math.max(...cands) : atrSl;
-  } else {
-    const obH = s1h.bearOB ? parseFloat(s1h.bearOB.hi) * 1.0015 : null;
-    const swH = parseFloat(s1h.res) * 1.001;
-    const atrSl = entry + atr * 1.3;
-    const cands = [[obH], [swH], [atrSl]].map(x => x[0]).filter(v => v && v > entry * 1.003);
-    sl = cands.length ? Math.min(...cands) : atrSl;
-  }
-  const riskDist = Math.abs(entry - sl);
-  if (!riskDist || riskDist / entry < 0.0001) return null;
-  const tp1 = dir === 'LONG' ? entry + riskDist * 2 : entry - riskDist * 2;
-
-  return {
-    pair, signal: dir, entry, tp1, sl, confidence: conf, total, sc4h, sc1h, lev,
-    time: new Date(+k1h[k1h.length - 1][0]).toLocaleString('ru')
-  };
-}
-
-function btResolveTrade(sig, future, maxHold) {
-  for (let i = 0; i < Math.min(future.length, maxHold); i++) {
-    const h = +future[i][2], l = +future[i][3], close = +future[i][4];
-    const hitSl = sig.signal === 'LONG' ? l <= sig.sl : h >= sig.sl;
-    const hitTp = sig.signal === 'LONG' ? h >= sig.tp1 : l <= sig.tp1;
-    if (hitSl) return { result:'SL', r:-1, exit:sig.sl, bars:i+1 };
-    if (hitTp) return { result:'TP1', r:2, exit:sig.tp1, bars:i+1 };
-    if (i === Math.min(future.length, maxHold) - 1) {
-      const risk = Math.abs(sig.entry - sig.sl);
-      const raw = sig.signal === 'LONG' ? (close - sig.entry) / risk : (sig.entry - close) / risk;
-      return { result:'TIME', r:Math.max(-1, Math.min(2, raw)), exit:close, bars:i+1 };
-    }
-  }
-  return null;
-}
-
-function renderBacktest(pair, trades, riskPct, limit) {
-  if (!trades.length) {
-    document.getElementById('btResults').innerHTML = '<div class="empty"><div class="empty-icon">0</div>No valid entries found on this history window.</div>';
-    return;
-  }
-  let equity = 100, peak = 100, maxDd = 0;
-  trades.forEach(t => {
-    equity += t.r * riskPct;
-    peak = Math.max(peak, equity);
-    maxDd = Math.max(maxDd, peak - equity);
-  });
-  const wins = trades.filter(t => t.result === 'TP1').length;
-  const losses = trades.filter(t => t.result === 'SL').length;
-  const timeouts = trades.filter(t => t.result === 'TIME').length;
-  const winrate = wins / trades.length * 100;
-  const avgR = trades.reduce((a,t)=>a+t.r,0) / trades.length;
-  const pnl = equity - 100;
-
-  const rows = trades.slice().reverse().slice(0, 80).map(t => `
-    <tr>
-      <td>${t.time}</td><td><b>${t.signal}</b></td><td>${fmt(t.entry)}</td>
-      <td class="td-green">${fmt(t.tp1)}</td><td class="td-red">${fmt(t.sl)}</td>
-      <td class="${t.result==='TP1'?'g':t.result==='SL'?'r':'y'}">${t.result}</td>
-      <td class="${t.r>=0?'g':'r'}">${t.r.toFixed(2)}R</td><td>${t.confidence}%</td><td>${t.bars}</td>
-    </tr>`).join('');
-
-  document.getElementById('btResults').innerHTML = `
-    <div class="bt-summary">
-      <div class="stat-cell"><div class="stat-label">TRADES</div><div class="stat-value sv-y">${trades.length}</div></div>
-      <div class="stat-cell"><div class="stat-label">WINRATE</div><div class="stat-value sv-g">${winrate.toFixed(1)}%</div></div>
-      <div class="stat-cell"><div class="stat-label">PNL</div><div class="stat-value ${pnl>=0?'sv-g':'sv-r'}">${pnl>=0?'+':''}${pnl.toFixed(2)}%</div></div>
-      <div class="stat-cell"><div class="stat-label">MAX DD</div><div class="stat-value sv-r">${maxDd.toFixed(2)}%</div></div>
-    </div>
-    <div class="risk-box mb12">
-      <b>${pair}</b> · ${limit} candles · Risk ${riskPct}% · Avg ${avgR.toFixed(2)}R · TP1 ${wins} · SL ${losses} · Timeout ${timeouts}
-    </div>
-    <div class="bt-table-wrap"><table class="bt-table">
-      <tr><th>Time</th><th>Side</th><th>Entry</th><th>TP1</th><th>SL</th><th>Result</th><th>R</th><th>Conf</th><th>Bars</th></tr>
-      ${rows}
-    </table></div>`;
-}
-
-async function runBacktest() {
-  const pair = document.getElementById('btPair').value;
-  const limit = parseInt(document.getElementById('btLimit').value) || 600;
-  const lev = parseInt(document.getElementById('btLev').value) || 10;
-  const riskPct = parseFloat(document.getElementById('btRisk').value) || 1;
-  const maxHold = parseInt(document.getElementById('btHold').value) || 36;
-  const btn = document.getElementById('btBtn');
-  const st = document.getElementById('btStatus');
-  btn.disabled = true;
-  btn.textContent = 'RUNNING...';
-  setStatus(st, 'Loading Binance candles...', '');
-  try {
-    const [k1, k4] = await Promise.all([
-      fetchBtKlines(pair, '1h', limit),
-      fetchBtKlines(pair, '4h', Math.min(1000, Math.ceil(limit / 4) + 120))
-    ]);
-    const trades = [];
-    let i = 120;
-    while (i < k1.length - maxHold - 1) {
-      const t = +k1[i][0];
-      const w1 = k1.slice(i - 100, i + 1);
-      const w4 = k4.filter(k => +k[0] <= t).slice(-60);
-      const sig = btSignalFromWindows(pair, w1, w4, lev);
-      if (sig) {
-        const out = btResolveTrade(sig, k1.slice(i + 1), maxHold);
-        if (out) {
-          trades.push({...sig, ...out});
-          i += out.bars;
-          continue;
-        }
-      }
-      i++;
-    }
-    renderBacktest(pair, trades, riskPct, limit);
-    setStatus(st, `Done: ${trades.length} trades`, 'ok');
-  } catch(e) {
-    setStatus(st, 'Error: ' + (e.message || e), 'err');
-  }
-  btn.disabled = false;
-  btn.textContent = 'RUN BACKTEST';
-}
-
-// ═══════════════════════════════════════════════════
 //  FORMAT
 // ═══════════════════════════════════════════════════
 function fmt(v) {
@@ -1145,11 +918,6 @@ function buildCard(pair, lev, s) {
           onclick="openBinance('${pair}','${s.signal}',${s.limitEntry||s.entry},${s.sl},${s.tp1});return false;"
           class="binance-btn" style="flex:1">
           🚀 Открыть Binance Futures
-        </a>
-        <a href="${getTradingViewUrl(pair)}"
-          onclick="openTradingView('${pair}');return false;"
-          class="tv-btn" style="flex:1">
-          📊 TradingView .P
         </a>
       </div>
       <div class="risk-box">
@@ -1353,14 +1121,9 @@ function showBestSignal() {
       🎯 TP1: <b class="g">${fmt(sig.tp1)}</b> · TP2: <b class="g">${fmt(sig.tp2)}</b> · TP3: <b class="g">${fmt(sig.tp3)}</b><br>
       🛑 SL: <b class="r">${fmt(sig.sl)}</b> · Score: <b>${sig.total}</b>
     </div>
-    <div style="display:flex;gap:8px;margin-top:10px">
-      <a href="intent://futures/${toFutSymbol(pair)}#Intent;scheme=bnc;package=com.binance.dev;S.browser_fallback_url=${encodeURIComponent('https://www.binance.com/en/futures/'+toFutSymbol(pair))};end"
-        onclick="openBinance('${pair}','${sig.signal}',${sig.limitEntry||sig.entry},${sig.sl},${sig.tp1});return false;"
-        class="binance-btn" style="flex:1">🚀 Открыть Binance Futures</a>
-      <a href="${getTradingViewUrl(pair)}"
-        onclick="openTradingView('${pair}');return false;"
-        class="tv-btn" style="flex:1">📊 TradingView .P</a>
-    </div>
+    <a href="intent://futures/${toFutSymbol(pair)}#Intent;scheme=bnc;package=com.binance.dev;S.browser_fallback_url=${encodeURIComponent('https://www.binance.com/en/futures/'+toFutSymbol(pair))};end"
+      onclick="openBinance('${pair}','${sig.signal}',${sig.limitEntry||sig.entry},${sig.sl},${sig.tp1});return false;"
+      class="binance-btn" style="margin-top:10px;display:block">🚀 Открыть Binance Futures</a>
   `;
   document.getElementById('autoResults').insertAdjacentElement('beforebegin', banner);
 }
